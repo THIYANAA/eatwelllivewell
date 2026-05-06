@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eat Well, Feel Well, Live Well</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=Epilogue:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0e8;
+  --surface: #ffffff;
+  --beige-dark: #e8e0d0;
+  --beige-mid: #d9cfc0;
+  --cream: #fdfaf4;
+  --burg: #6b1f2e;
+  --burg-dark: #4a0d1a;
+  --burg-light: #8b3048;
+  --burg-pale: #f2e8eb;
+  --text: #2c1218;
+  --text2: #4a2830;
+  --muted: #8a6a70;
+  --gold: #c4934a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Epilogue', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: var(--burg-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav-logo { font-family: 'Fraunces', serif; color: #f5ede0; font-size: 1.2rem; cursor: pointer; letter-spacing: -0.02em; }
+.nav-links { display: flex; gap: 0.2rem; }
+.nav-links a { color: rgba(245,237,224,0.65); font-size: 0.85rem; font-weight: 500; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.nav-links a:hover { color: #f5ede0; background: rgba(255,255,255,0.1); }
+.nav-links a.active { color: #f5ede0; background: rgba(255,255,255,0.18); font-weight: 700; }
+
+/* ── PAGES ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; animation: pageIn 0.4s ease; }
+@keyframes pageIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+#page-home { display: none; flex-direction: column; }
+#page-home.active { display: flex; }
+
+/* ── HOME ── */
+.home-hero {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  background: linear-gradient(150deg, var(--burg-dark) 0%, var(--burg) 55%, var(--burg-light) 100%);
+}
+.blob-wrap { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18; animation: blobMove 12s ease-in-out infinite alternate; }
+.blob1 { width: 500px; height: 500px; background: #c94060; top: -100px; left: -100px; animation-delay: 0s; }
+.blob2 { width: 400px; height: 400px; background: #8b1a2e; bottom: -50px; right: -50px; animation-delay: 4s; }
+.blob3 { width: 300px; height: 300px; background: #e8c4a0; top: 40%; left: 55%; animation-delay: 8s; }
+@keyframes blobMove { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(30px,20px) scale(1.1);} }
+.home-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,237,224,0.12); border: 1px solid rgba(245,237,224,0.25); color: #f0dfc8; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1.1rem; border-radius: 50px; margin-bottom: 2rem; position: relative; z-index: 1; }
+.badge-dot { width: 6px; height: 6px; background: #f0dfc8; border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.home-title { font-family: 'Fraunces', serif; font-size: clamp(3.5rem,9vw,8rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.04em; color: #fdfaf4; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.home-title .accent { color: #f0dfc8; font-style: italic; }
+.home-sub { font-size: 1.1rem; color: rgba(245,237,224,0.75); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; position: relative; z-index: 1; }
+.home-sub span { color: #f0dfc8; font-weight: 600; }
+.home-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+.btn-primary { background: #f5f0e8; color: var(--burg-dark); border: none; padding: 0.9rem 2.2rem; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.25s; font-family: 'Epilogue', sans-serif; }
+.btn-primary:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(74,13,26,0.3); }
+.btn-ghost { background: transparent; color: #f5f0e8; border: 1.5px solid rgba(245,240,232,0.4); padding: 0.9rem 2.2rem; border-radius: 50px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.25s; font-family: 'Epilogue', sans-serif; }
+.btn-ghost:hover { border-color: #f5f0e8; background: rgba(245,240,232,0.1); }
+.stats-bar { display: grid; grid-template-columns: repeat(4,1fr); background: var(--burg-dark); border-top: 1px solid rgba(255,255,255,0.08); }
+.stat { padding: 1.8rem 2rem; border-right: 1px solid rgba(255,255,255,0.08); text-align: center; }
+.stat:last-child { border-right: none; }
+.stat-num { font-family: 'Fraunces', serif; font-size: 2.5rem; font-weight: 700; color: #f0dfc8; line-height: 1; display: block; }
+.stat-label { font-size: 0.72rem; color: rgba(245,237,224,0.5); margin-top: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── PAGE HEADER ── */
+.page-hero { padding: 8rem 2.5rem 3.5rem; max-width: 900px; margin: 0 auto; }
+.page-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--burg); margin-bottom: 1rem; }
+.page-title { font-family: 'Fraunces', serif; font-size: clamp(2.5rem,6vw,5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--burg-dark); margin-bottom: 1rem; }
+.page-desc { color: var(--muted); font-size: 1.05rem; line-height: 1.7; max-width: 600px; }
+
+/* ── FOOD GROUPS ── */
+.fg-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 1px; background: var(--beige-mid); border: 1px solid var(--beige-mid); margin: 0 0 4rem; }
+.fg-card { background: var(--surface); padding: 2.5rem; position: relative; overflow: hidden; transition: background 0.3s; }
+.fg-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; }
+.fg-card:hover { background: var(--cream); }
+.fg-card.grain::before { background: var(--gold); }
+.fg-card.fruit::before { background: #c0392b; }
+.fg-card.veg::before { background: #2e7d32; }
+.fg-card.dairy::before { background: #1565c0; }
+.fg-card.meat::before { background: var(--burg); }
+.fg-emoji { font-size: 3.2rem; display: block; margin-bottom: 1.2rem; transition: transform 0.3s; }
+.fg-card:hover .fg-emoji { transform: scale(1.15) rotate(-5deg); }
+.fg-name { font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 700; color: var(--burg-dark); margin-bottom: 0.8rem; letter-spacing: -0.02em; }
+.fg-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.2rem; }
+.fg-benefits { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.fg-tag { font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; }
+.grain .fg-tag { background: #fdf3e0; color: #9b6a10; }
+.fruit .fg-tag { background: #fdecea; color: #b71c1c; }
+.veg .fg-tag { background: #e8f5e9; color: #1b5e20; }
+.dairy .fg-tag { background: #e3f2fd; color: #0d47a1; }
+.meat .fg-tag { background: var(--burg-pale); color: var(--burg); }
+.fg-serves { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--beige-dark); display: flex; align-items: center; justify-content: space-between; }
+.fg-serves-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+.grain .fg-serves-num { color: var(--gold); }
+.fruit .fg-serves-num { color: #c0392b; }
+.veg .fg-serves-num { color: #2e7d32; }
+.dairy .fg-serves-num { color: #1565c0; }
+.meat .fg-serves-num { color: var(--burg); }
+.fg-serves-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── RECIPES ── */
+.recipes-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(290px,1fr)); gap: 1.5rem; padding: 0 2.5rem 4rem; max-width: 1200px; margin: 0 auto; }
+.recipe-card { background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid var(--beige-dark); transition: all 0.3s; cursor: pointer; box-shadow: 0 2px 12px rgba(107,31,46,0.06); }
+.recipe-card:hover { transform: translateY(-6px); border-color: var(--burg-light); box-shadow: 0 16px 48px rgba(107,31,46,0.14); }
+.recipe-img-wrap { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 5rem; position: relative; overflow: hidden; }
+.recipe-img-wrap::after { content: 'Click to explore →'; position: absolute; inset: 0; background: rgba(74,13,26,0.75); display: flex; align-items: center; justify-content: center; color: #f5f0e8; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; opacity: 0; transition: opacity 0.3s; }
+.recipe-card:hover .recipe-img-wrap::after { opacity: 1; }
+.recipe-info { padding: 1.5rem; }
+.recipe-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 50px; background: var(--burg-pale); color: var(--burg); margin-bottom: 0.7rem; }
+.recipe-name { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 700; color: var(--burg-dark); margin-bottom: 0.5rem; letter-spacing: -0.02em; line-height: 1.2; }
+.recipe-meta { display: flex; gap: 1rem; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.8rem; flex-wrap: wrap; }
+.recipe-tagline { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(74,13,26,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(8px); }
+.modal-overlay.open { display: flex; animation: modalIn 0.3s ease; }
+@keyframes modalIn { from{opacity:0;} to{opacity:1;} }
+.modal { background: var(--surface); border-radius: 20px; border: 1px solid var(--beige-dark); max-width: 620px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(74,13,26,0.3); animation: modalSlide 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes modalSlide { from{transform:scale(0.92) translateY(20px);} to{transform:scale(1) translateY(0);} }
+.modal-hero { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 6rem; position: relative; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(74,13,26,0.5); border: none; color: white; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.modal-close:hover { background: var(--burg-dark); }
+.modal-body { padding: 1.5rem 2rem 2rem; }
+.modal-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 50px; background: var(--burg-pale); color: var(--burg); margin-bottom: 0.7rem; }
+.modal-title { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: var(--burg-dark); margin-bottom: 0.5rem; letter-spacing: -0.03em; }
+.modal-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; flex-wrap: wrap; }
+.modal-section-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--burg); margin-bottom: 0.8rem; margin-top: 1.5rem; }
+.modal ul, .modal ol { padding-left: 1.2rem; color: var(--muted); font-size: 0.9rem; line-height: 2; }
+.modal li { padding-left: 0.2rem; }
+.modal-why { background: var(--burg-pale); border: 1px solid rgba(107,31,46,0.15); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+.modal-why strong { color: var(--burg); }
+.modal-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 0.5rem; }
+@media(max-width:560px){ .modal-cols { grid-template-columns: 1fr; } }
+.modal-col { background: var(--bg); border-radius: 12px; padding: 1.2rem; border: 1px solid var(--beige-dark); }
+.modal-col.orig { border-top: 3px solid #c0392b; }
+.modal-col.mod { border-top: 3px solid var(--burg); }
+.modal-col-title { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; color: var(--burg-dark); margin-bottom: 0.8rem; }
+.modal-col ul, .modal-col ol { padding-left: 1.1rem; color: var(--muted); font-size: 0.85rem; line-height: 1.9; }
+.modal-col-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--burg); margin: 0.8rem 0 0.4rem; }
+
+/* ── MODIFICATIONS ── */
+.mods-section { padding: 0 2.5rem 4rem; max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--burg); margin-bottom: 0.8rem; }
+.mod-recipe-title { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900; color: var(--burg-dark); margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+.mod-recipe-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+.recipes-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+@media(max-width:650px){.recipes-compare{grid-template-columns:1fr;}}
+.compare-box { background: var(--surface); border-radius: 16px; padding: 2rem; border: 1px solid var(--beige-dark); box-shadow: 0 2px 12px rgba(107,31,46,0.05); }
+.compare-box.original { border-top: 4px solid #c0392b; }
+.compare-box.modified { border-top: 4px solid var(--burg); }
+.compare-box h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; color: var(--burg-dark); margin-bottom: 1.2rem; }
+.compare-box ul, .compare-box ol { padding-left: 1.2rem; font-size: 0.88rem; line-height: 2.2; color: var(--muted); }
+.changed { color: var(--burg); font-weight: 600; }
+.struck { text-decoration: line-through; opacity: 0.4; font-size: 0.78rem; }
+.mod-tag { display: inline-block; background: var(--burg-pale); color: var(--burg); font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700; margin-left: 0.3rem; vertical-align: middle; }
+.mod-divider { height: 2px; background: var(--beige-dark); margin: 3rem 0; border-radius: 2px; }
+.method-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--beige-dark); }
+
+/* ── HEALTH ADVICE ── */
+.health-section { padding: 0 2.5rem 4rem; max-width: 1100px; margin: 0 auto; }
+.section-heading { font-family: 'Fraunces', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 900; color: var(--burg-dark); letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 0.8rem; }
+.section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 600px; margin-bottom: 2.5rem; }
+.health-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+.health-card { background: var(--surface); border-radius: 14px; padding: 2rem; border: 1px solid var(--beige-dark); transition: all 0.3s; box-shadow: 0 2px 8px rgba(107,31,46,0.04); }
+.health-card:hover { transform: translateY(-4px); border-color: var(--burg-light); box-shadow: 0 8px 24px rgba(107,31,46,0.1); }
+.health-card-num { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 900; color: var(--burg-pale); line-height: 1; margin-bottom: 0.5rem; }
+.health-card h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--burg-dark); margin-bottom: 0.6rem; }
+.health-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+.divider { height: 1px; background: var(--beige-dark); margin: 3rem 0; }
+.nutrients-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.2rem; }
+.nutrient-card { background: var(--surface); border-radius: 14px; padding: 1.8rem; border: 1px solid var(--beige-dark); position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(107,31,46,0.04); }
+.nutrient-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; }
+.nc-protein::before { background: var(--burg); }
+.nc-carbs::before { background: var(--gold); }
+.nc-fats::before { background: #c0392b; }
+.nc-water::before { background: #1565c0; }
+.nc-vitamins::before { background: #2e7d32; }
+.nc-minerals::before { background: #6a1b9a; }
+.nc-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+.nc-name { font-family: 'Fraunces', serif; font-size: 1.2rem; color: var(--burg-dark); margin-bottom: 0.3rem; }
+.nc-amount { font-size: 0.78rem; font-weight: 700; color: var(--burg); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.nc-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem; }
+.nc-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.nc-tag { font-size: 0.7rem; padding: 0.2rem 0.6rem; background: var(--bg); border-radius: 50px; color: var(--muted); }
+
+/* ── ACCORDION ── */
+.accordion { margin-bottom: 3rem; }
+.accordion-item { background: var(--surface); border-radius: 14px; border: 1px solid var(--beige-dark); margin-bottom: 0.8rem; overflow: hidden; box-shadow: 0 2px 8px rgba(107,31,46,0.04); }
+.accordion-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; background: none; border: none; cursor: pointer; font-family: 'Epilogue', sans-serif; text-align: left; transition: background 0.2s; gap: 1rem; }
+.accordion-btn:hover { background: var(--cream); }
+.accordion-btn.open { background: var(--burg-pale); }
+.accordion-left { display: flex; align-items: center; gap: 1rem; }
+.accordion-emoji { font-size: 1.8rem; }
+.accordion-name { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--burg-dark); }
+.accordion-arrow { font-size: 1rem; color: var(--burg); transition: transform 0.3s; flex-shrink: 0; }
+.accordion-btn.open .accordion-arrow { transform: rotate(180deg); }
+.accordion-body { display: none; padding: 0 1.5rem 1.5rem; animation: fadeDown 0.3s ease; }
+.accordion-body.open { display: block; }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-8px);} to{opacity:1;transform:translateY(0);} }
+.accordion-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+.accordion-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.accordion-tag { font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; background: var(--burg-pale); color: var(--burg); }
+.accordion-serves { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--beige-dark); padding-top: 0.8rem; }
+.accordion-serves strong { color: var(--burg-dark); }
+
+/* ── FOOTER ── */
+footer { background: var(--burg-dark); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-family: 'Fraunces', serif; color: #f0dfc8; font-size: 1rem; }
+.footer-text { font-size: 0.78rem; color: rgba(245,237,224,0.5); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--burg-light); border-radius: 3px; }
+
+@media(max-width:700px){
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  nav { padding: 0.8rem 1rem; }
+  .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.78rem; }
+  .page-hero { padding: 6rem 1.2rem 2rem; }
+  .fg-grid { grid-template-columns: 1fr; }
+  .recipes-grid, .mods-section, .health-section { padding: 0 1.2rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">🥗 Eat Well</div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a onclick="showPage('recipes')" id="nav-recipes">Recipes</a>
+    <a onclick="showPage('mods')" id="nav-mods">Modifications</a>
+    <a onclick="showPage('health')" id="nav-health">Health Advice</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="blob-wrap"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+    <div class="home-badge"><span class="badge-dot"></span> Australian Adolescent Nutrition Guide</div>
+    <h1 class="home-title">Eat well,<br><span class="accent">feel well,</span><br>live well.</h1>
+    <p class="home-sub">A guide on healthy eating for Australian adolescents —<br><span>Good food, good mood, good day.</span></p>
+    <div class="home-btns">
+      <button class="btn-primary" onclick="showPage('foodgroups')">Explore Food Groups →</button>
+      <button class="btn-ghost" onclick="showPage('recipes')">View Recipes</button>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Food Groups</span></div>
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">Recipes</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Modifications</span></div>
+    <div class="stat"><span class="stat-num">8–10</span><span class="stat-label">Glasses Water/Day</span></div>
+  </div>
+</div>
+
+<!-- FOOD GROUPS -->
+<div id="page-foodgroups" class="page">
+  <div class="page-hero">
+    <div class="page-eyebrow">🇦🇺 Australian Guide to Healthy Eating</div>
+    <h1 class="page-title">The Five<br>Food Groups</h1>
+    <p class="page-desc">Every food group plays a unique role in keeping your body strong, energised and healthy. Adolescents need serves from all five every single day.</p>
+  </div>
+  <div class="fg-grid">
+    <div class="fg-card grain">
+      <span class="fg-emoji">🌾</span><div class="fg-name">Grain Foods</div>
+      <div class="fg-desc">Grain foods are edible seeds from grasses. They contain essential energy, fibre, and key nutrients like B vitamins, iron, and magnesium. Grain foods also reduce risks of heart disease, type 2 diabetes, and stroke. Choose wholegrain varieties where possible for maximum nutritional benefit.</div>
+      <div class="fg-benefits"><span class="fg-tag">B Vitamins</span><span class="fg-tag">Iron</span><span class="fg-tag">Magnesium</span><span class="fg-tag">Fibre</span><span class="fg-tag">Energy</span></div>
+      <div class="fg-serves"><div><div class="fg-serves-num">7–8</div><div class="fg-serves-label">serves per day</div></div><div style="font-size:0.78rem;color:var(--muted);text-align:right;">e.g. 1 slice bread<br>½ cup cooked rice</div></div>
+    </div>
+    <div class="fg-card fruit">
+      <span class="fg-emoji">🍎</span><div class="fg-name">Fruit</div>
+      <div class="fg-desc">Fruits are the mature, seed-bearing part of a flowering plant. Fruit contains vitamins C, A, and folate, potassium, magnesium, water, and fibre. It also boosts immune function, improves digestion, and lowers the risk of chronic diseases like heart disease, stroke, and cancer.</div>
+      <div class="fg-benefits"><span class="fg-tag">Vitamin C</span><span class="fg-tag">Vitamin A</span><span class="fg-tag">Folate</span><span class="fg-tag">Potassium</span><span class="fg-tag">Fibre</span></div>
+      <div class="fg-serves"><div><div class="fg-serves-num">2</div><div class="fg-serves-label">serves per day</div></div><div style="font-size:0.78rem;color:var(--muted);text-align:right;">e.g. 1 medium apple<br>½ cup berries</div></div>
+    </div>
+    <div class="fg-card veg">
+      <span class="fg-emoji">🥦</span><div class="fg-name">Vegetables</div>
+      <div class="fg-desc">A vegetable is any edible part of a plant, such as roots, tubers, stems, leaves, or flower buds. Vegetables are rich in vitamins A, C, and K, and folate. They also reduce the risk of heart disease, stroke, chronic illnesses, and certain cancers.</div>
+      <div class="fg-benefits"><span class="fg-tag">Vitamin A</span><span class="fg-tag">Vitamin C</span><span class="fg-tag">Vitamin K</span><span class="fg-tag">Folate</span><span class="fg-tag">Antioxidants</span></div>
+      <div class="fg-serves"><div><div class="fg-serves-num">5–6</div><div class="fg-serves-label">serves per day</div></div><div style="font-size:0.78rem;color:var(--muted);text-align:right;">e.g. ½ cup cooked veg<br>1 cup salad leaves</div></div>
+    </div>
+    <div class="fg-card dairy">
+      <span class="fg-emoji">🥛</span><div class="fg-name">Dairy & Alternatives</div>
+      <div class="fg-desc">Dairy foods are from the milk of mammals, mainly cows, but also sheep, goats, and buffalo. Dairy gives your body calcium, protein, and vitamin D. These nutrients help your body have strong bones, help your muscles recover and support immune function.</div>
+      <div class="fg-benefits"><span class="fg-tag">Calcium</span><span class="fg-tag">Protein</span><span class="fg-tag">Vitamin D</span><span class="fg-tag">Strong Bones</span><span class="fg-tag">Immunity</span></div>
+      <div class="fg-serves"><div><div class="fg-serves-num">3.5</div><div class="fg-serves-label">serves per day</div></div><div style="font-size:0.78rem;color:var(--muted);text-align:right;">e.g. 1 cup milk<br>40g hard cheese</div></div>
+    </div>
+    <div class="fg-card meat">
+      <span class="fg-emoji">🥩</span><div class="fg-name">Meat & Protein Foods</div>
+      <div class="fg-desc">Meat foods are from animals, like hens, cows, pigs and more. Meat gives your body vitamin B12, protein, iron and zinc. These nutrients help your body with muscle growth and repair, energy, prevent iron deficiency and give you a strong immune system.</div>
+      <div class="fg-benefits"><span class="fg-tag">Vitamin B12</span><span class="fg-tag">Protein</span><span class="fg-tag">Iron</span><span class="fg-tag">Zinc</span><span class="fg-tag">Muscle Growth</span></div>
+      <div class="fg-serves"><div><div class="fg-serves-num">2.5</div><div class="fg-serves-label">serves per day</div></div><div style="font-size:0.78rem;color:var(--muted);text-align:right;">e.g. 65g cooked meat<br>2 eggs or 170g tofu</div></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">🥗 Eat Well, Feel Well, Live Well</div><div class="footer-text">Based on Australian Dietary Guidelines (NHMRC)</div></footer>
+</div>
+
+<!-- RECIPES -->
+<div id="page-recipes" class="page">
+  <div class="page-hero">
+    <div class="page-eyebrow">🍴 Healthy Recipes</div>
+    <h1 class="page-title">4 Delicious<br>Recipes</h1>
+    <p class="page-desc">Each recipe is nutritious, delicious and easy to make. Click any card to see the full ingredients and method!</p>
+  </div>
+  <div class="recipes-grid">
+
+    <!-- 1. Chicken Teriyaki Skewers -->
+    <div class="recipe-card" onclick="openModal('r1')">
+      <div class="recipe-img-wrap" style="background:linear-gradient(135deg,#f2e8eb,#e0cdd2);">🍢</div>
+      <div class="recipe-info">
+        <div class="recipe-badge">🇯🇵 Japanese</div>
+        <div class="recipe-name">Chicken Teriyaki Skewers</div>
+        <div class="recipe-meta"><span>⏱ 40 mins</span><span>🍽 2–3 skewers</span><span>💪 High Protein</span></div>
+        <div class="recipe-tagline">Juicy chicken marinated in a sweet soy teriyaki glaze, grilled to perfection on skewers.</div>
+      </div>
+    </div>
+
+    <!-- 2. Vegetable Spring Rolls -->
+    <div class="recipe-card" onclick="openModal('r2')">
+      <div class="recipe-img-wrap" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);">🥢</div>
+      <div class="recipe-info">
+        <div class="recipe-badge">🌱 Vegetarian</div>
+        <div class="recipe-name">Vegetable Spring Rolls (Fried)</div>
+        <div class="recipe-meta"><span>⏱ 25 mins</span><span>🍽 4–6 rolls</span><span>🥦 Veggie-Packed</span></div>
+        <div class="recipe-tagline">Crispy golden rolls stuffed with shredded cabbage, carrot and bean sprouts — crunchy and delicious.</div>
+      </div>
+    </div>
+
+    <!-- 3. Fried Rice -->
+    <div class="recipe-card" onclick="openModal('r3')">
+      <div class="recipe-img-wrap" style="background:linear-gradient(135deg,#f5f0e8,#e8ddd0);">🍚</div>
+      <div class="recipe-info">
+        <div class="recipe-badge">🍳 Classic</div>
+        <div class="recipe-name">Fried Rice</div>
+        <div class="recipe-meta"><span>⏱ 15 mins</span><span>🍽 1–2 serves</span><span>🥚 With Egg</span></div>
+        <div class="recipe-tagline">A quick and satisfying stir-fried rice with eggs, peas and soy sauce — a lunchbox favourite.</div>
+      </div>
+    </div>
+
+    <!-- 4. Thai Mango Sticky Rice -->
+    <div class="recipe-card" onclick="openModal('r4')">
+      <div class="recipe-img-wrap" style="background:linear-gradient(135deg,#fff8e1,#ffe0b2);">🥭</div>
+      <div class="recipe-info">
+        <div class="recipe-badge">🇹🇭 Thai</div>
+        <div class="recipe-name">Thai Mango Sticky Rice</div>
+        <div class="recipe-meta"><span>⏱ 20 mins</span><span>🍽 1 serve</span><span>🌿 Vegetarian</span></div>
+        <div class="recipe-tagline">Sweet sticky rice drenched in coconut milk, served with fresh mango — a beloved Thai classic.</div>
+      </div>
+    </div>
+
+  </div>
+  <footer><div class="footer-logo">🥗 Eat Well, Feel Well, Live Well</div><div class="footer-text">Based on Australian Dietary Guidelines (NHMRC)</div></footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-hero" id="modal-hero"><button class="modal-close" onclick="closeModal()">✕</button><span id="modal-emoji"></span></div>
+    <div class="modal-body">
+      <div class="modal-badge" id="modal-badge"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div id="modal-content"></div>
+      <div class="modal-why" id="modal-why"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODIFICATIONS -->
+<div id="page-mods" class="page">
+  <div class="page-hero">
+    <div class="page-eyebrow">✏️ Recipe Modifications</div>
+    <h1 class="page-title">Making Recipes<br>Healthier</h1>
+    <p class="page-desc">See how simple swaps can turn everyday recipes into more nutritious, balanced meals — without losing the taste!</p>
+  </div>
+  <div class="mods-section">
+
+    <!-- 1. TERIYAKI CHICKEN ONIGIRI -->
+    <div class="mod-recipe-title">🍢 Teriyaki Chicken Onigiri (Japanese Rice Balls)</div>
+    <div class="mod-recipe-sub">A fun and portable modification of the Chicken Teriyaki Skewers — turning the same flavours into handheld rice balls.</div>
+    <div class="recipes-compare">
+      <div class="compare-box original">
+        <h3>🔴 Original Recipe</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Chicken Teriyaki Skewers</p>
+        <ul>
+          <li>500g chicken thigh, cut into cubes</li>
+          <li>¼ cup soy sauce</li>
+          <li>¼ cup brown sugar</li>
+          <li>1 tbsp sesame oil</li>
+          <li>1 tbsp honey</li>
+          <li>1 garlic clove, crushed</li>
+          <li>1 tsp grated ginger</li>
+          <li>Wooden skewers</li>
+        </ul>
+        <div class="method-label">Method</div>
+        <ol style="font-size:0.85rem;padding-left:1.2rem;color:var(--muted);line-height:2;">
+          <li>Mix soy sauce, brown sugar, sesame oil, honey, garlic, and ginger together.</li>
+          <li>Add the chicken and marinate it for 30 minutes.</li>
+          <li>Thread chicken onto skewers.</li>
+          <li>Grill or pan-fry for 10–12 minutes until cooked.</li>
+          <li>Serve warm.</li>
+        </ol>
+      </div>
+      <div class="compare-box modified">
+        <h3>🟢 Modified Recipe</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Teriyaki Chicken Onigiri</p>
+        <ul>
+          <li><span class="changed">2 cups cooked sticky rice</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">½ cup cooked chicken, diced</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">1 tbsp teriyaki sauce</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">Pinch of salt</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">Nori strips (optional)</span> <span class="mod-tag">MOD</span></li>
+        </ul>
+        <div class="method-label">Method</div>
+        <ol style="font-size:0.85rem;padding-left:1.2rem;color:var(--muted);line-height:2;">
+          <li>Mix the cooked chicken with the teriyaki sauce.</li>
+          <li>Add a pinch of salt to the chicken mixture.</li>
+          <li>Take a handful of rice, flatten it in your hand, add a spoonful of chicken in the centre, then add more rice on top to cover the filling.</li>
+          <li>Shape the rice firmly into a triangle.</li>
+          <li>Wrap with a strip of nori if desired.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mod-divider"></div>
+
+    <!-- 2. THAI MANGO & EDAMAME RICE SALAD -->
+    <div class="mod-recipe-title">🥭 Thai-Style Mango &amp; Edamame Rice Salad</div>
+    <div class="mod-recipe-sub">A fresh and vibrant modification using jasmine rice, tropical mango and protein-rich edamame.</div>
+    <div class="recipes-compare">
+      <div class="compare-box original">
+        <h3>🔴 Original Recipe</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Thai Mango Sticky Rice</p>
+        <ul>
+          <li>White sticky rice</li>
+          <li>Coconut milk</li>
+          <li>Sugar</li>
+          <li>Mango slices</li>
+        </ul>
+        <div class="method-label">Method</div>
+        <ol style="font-size:0.85rem;padding-left:1.2rem;color:var(--muted);line-height:2;">
+          <li>Cook the sticky rice.</li>
+          <li>Mix the coconut milk with sugar.</li>
+          <li>Pour over the rice and serve with mango.</li>
+        </ol>
+      </div>
+      <div class="compare-box modified">
+        <h3>🟢 Modified Recipe</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Thai-Style Mango &amp; Edamame Rice Salad</p>
+        <ul>
+          <li><span class="changed">½ cup cooked jasmine rice</span> <span class="mod-tag">MOD</span><br><span class="struck">White sticky rice</span></li>
+          <li><span class="changed">¼ cup diced mango</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">¼ cup edamame (added protein)</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">1 tbsp lime juice</span> <span class="mod-tag">MOD</span><br><span class="struck">Coconut milk</span></li>
+          <li><span class="changed">1 tsp soy sauce</span> <span class="mod-tag">MOD</span><br><span class="struck">Sugar</span></li>
+          <li><span class="changed">1 tsp sweet chilli sauce</span> <span class="mod-tag">MOD</span></li>
+        </ul>
+        <div class="method-label">Method</div>
+        <ol style="font-size:0.85rem;padding-left:1.2rem;color:var(--muted);line-height:2;">
+          <li>Combine rice, diced mango, and edamame in a bowl.</li>
+          <li>Mix lime juice, soy sauce, and sweet chilli sauce together in a separate bowl.</li>
+          <li>Mix the dry and wet ingredients together until well combined.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mod-divider"></div>
+
+    <!-- 3. VEGETARIAN ADOBO RICE BOWL -->
+    <div class="mod-recipe-title">🍚 Vegetarian Adobo Rice Bowl</div>
+    <div class="mod-recipe-sub">A plant-based modification of Fried Rice — swapping ham and egg for mushrooms and tofu in a rich adobo sauce.</div>
+    <div class="recipes-compare">
+      <div class="compare-box original">
+        <h3>🔴 Original Recipe</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Fried Rice</p>
+        <ul>
+          <li>White rice</li>
+          <li>2 eggs</li>
+          <li>Soy sauce</li>
+          <li>Frozen peas</li>
+          <li>Oil</li>
+          <li>Optional ham</li>
+        </ul>
+        <div class="method-label">Method</div>
+        <ol style="font-size:0.85rem;padding-left:1.2rem;color:var(--muted);line-height:2;">
+          <li>Heat oil.</li>
+          <li>Add eggs and scramble them.</li>
+          <li>Add rice, peas, soy sauce, and ham.</li>
+          <li>Stir-fry until it is hot.</li>
+        </ol>
+      </div>
+      <div class="compare-box modified">
+        <h3>🟢 Modified Recipe</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Vegetarian Adobo Rice Bowl</p>
+        <ul>
+          <li><span class="changed">1 cup cooked rice</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">¼ cup mushrooms, sliced</span> <span class="mod-tag">MOD</span><br><span class="struck">Optional ham</span></li>
+          <li><span class="changed">¼ cup tofu cubes</span> <span class="mod-tag">MOD</span><br><span class="struck">2 eggs</span></li>
+          <li><span class="changed">1 tbsp soy sauce</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">1 tsp vinegar (added — adobo flavour)</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">1 garlic clove, minced</span> <span class="mod-tag">MOD</span></li>
+          <li><span class="changed">Bay leaf (optional)</span> <span class="mod-tag">MOD</span></li>
+        </ul>
+        <div class="method-label">Method</div>
+        <ol style="font-size:0.85rem;padding-left:1.2rem;color:var(--muted);line-height:2;">
+          <li>Sauté the garlic, mushrooms, and tofu until lightly browned.</li>
+          <li>Add soy sauce, vinegar, and bay leaf (bay leaf is optional).</li>
+          <li>Simmer until the sauce thickens.</li>
+          <li>Spoon the sauce over the rice and serve.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+  <footer><div class="footer-logo">🥗 Eat Well, Feel Well, Live Well</div><div class="footer-text">Based on Australian Dietary Guidelines (NHMRC)</div></footer>
+</div>
+
+<!-- HEALTH ADVICE -->
+<div id="page-health" class="page">
+  <div class="page-hero">
+    <div class="page-eyebrow">📋 Australian Dietary Guidelines</div>
+    <h1 class="page-title">Health Advice<br>for Teens</h1>
+    <p class="page-desc">Understanding what your body needs during adolescence — the most important period of growth in your life.</p>
+  </div>
+  <div class="health-section">
+    <div class="section-label">Food Groups</div>
+    <div class="section-heading" style="margin-bottom:0.5rem;">The Five Food Groups</div>
+    <p class="section-sub">Click each food group to learn about what it contains and how many serves you need each day.</p>
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-left"><span class="accordion-emoji">🌾</span><span class="accordion-name">Grain Foods</span></div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p class="accordion-desc">Grain foods are edible seeds from grasses. They contain essential energy, fibre, and key nutrients like B vitamins, iron, and magnesium. Grain foods also reduce risks of heart disease, type 2 diabetes, and stroke. Choose wholegrain varieties where possible for maximum nutritional benefit.</p>
+          <div class="accordion-tags"><span class="accordion-tag">B Vitamins</span><span class="accordion-tag">Iron</span><span class="accordion-tag">Magnesium</span><span class="accordion-tag">Fibre</span><span class="accordion-tag">Energy</span></div>
+          <div class="accordion-serves"><strong>Daily serves:</strong> 7–8 &nbsp;|&nbsp; e.g. 1 slice bread, ½ cup cooked rice</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-left"><span class="accordion-emoji">🍎</span><span class="accordion-name">Fruit</span></div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p class="accordion-desc">Fruits are the mature, seed-bearing part of a flowering plant. Fruit contains vitamins C, A, and folate, potassium, magnesium, water, and fibre. It also boosts immune function, improves digestion, and lowers the risk of chronic diseases like heart disease, stroke, and cancer.</p>
+          <div class="accordion-tags"><span class="accordion-tag">Vitamin C</span><span class="accordion-tag">Vitamin A</span><span class="accordion-tag">Folate</span><span class="accordion-tag">Potassium</span><span class="accordion-tag">Fibre</span></div>
+          <div class="accordion-serves"><strong>Daily serves:</strong> 2 &nbsp;|&nbsp; e.g. 1 medium apple, ½ cup berries</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-left"><span class="accordion-emoji">🥦</span><span class="accordion-name">Vegetables</span></div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p class="accordion-desc">A vegetable is any edible part of a plant, such as roots, tubers, stems, leaves, or flower buds. Vegetables are rich in vitamins A, C, and K, and folate. They also reduce the risk of heart disease, stroke, chronic illnesses, and certain cancers.</p>
+          <div class="accordion-tags"><span class="accordion-tag">Vitamin A</span><span class="accordion-tag">Vitamin C</span><span class="accordion-tag">Vitamin K</span><span class="accordion-tag">Folate</span><span class="accordion-tag">Antioxidants</span></div>
+          <div class="accordion-serves"><strong>Daily serves:</strong> 5–6 &nbsp;|&nbsp; e.g. ½ cup cooked veg, 1 cup salad leaves</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-left"><span class="accordion-emoji">🥛</span><span class="accordion-name">Dairy & Alternatives</span></div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p class="accordion-desc">Dairy foods are from the milk of mammals, mainly cows, but also sheep, goats, and buffalo. Dairy gives your body calcium, protein, and vitamin D. These nutrients help your body have strong bones, help your muscles recover and support immune function.</p>
+          <div class="accordion-tags"><span class="accordion-tag">Calcium</span><span class="accordion-tag">Protein</span><span class="accordion-tag">Vitamin D</span><span class="accordion-tag">Strong Bones</span><span class="accordion-tag">Immunity</span></div>
+          <div class="accordion-serves"><strong>Daily serves:</strong> 3.5 &nbsp;|&nbsp; e.g. 1 cup milk, 40g hard cheese</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-left"><span class="accordion-emoji">🥩</span><span class="accordion-name">Meat & Protein Foods</span></div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p class="accordion-desc">Meat foods are from animals, like hens, cows, pigs and more. Meat gives your body vitamin B12, protein, iron and zinc. These nutrients help your body with muscle growth and repair, energy, prevent iron deficiency and give you a strong immune system.</p>
+          <div class="accordion-tags"><span class="accordion-tag">Vitamin B12</span><span class="accordion-tag">Protein</span><span class="accordion-tag">Iron</span><span class="accordion-tag">Zinc</span><span class="accordion-tag">Muscle Growth</span></div>
+          <div class="accordion-serves"><strong>Daily serves:</strong> 2.5 &nbsp;|&nbsp; e.g. 65g cooked meat, 2 eggs or 170g tofu</div>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="section-label">Dietary Guidelines</div>
+    <div class="section-heading" style="margin-bottom:0.5rem;">The 6 Key Guidelines</div>
+    <p class="section-sub">Evidence-based recommendations from the National Health and Medical Research Council (NHMRC).</p>
+    <div class="health-grid">
+      <div class="health-card"><div class="health-card-num">01</div><h3>Eat from all five food groups every day</h3><p>Include plenty of vegetables, fruit, grain foods, lean meats/alternatives, and dairy every day. Variety ensures you get all the essential vitamins and minerals your body needs.</p></div>
+      <div class="health-card"><div class="health-card-num">02</div><h3>Enjoy water as your main drink</h3><p>Teens should aim for 8–10 glasses of water daily. Avoid sugary drinks like soft drinks and energy drinks — they contribute to tooth decay and excess kilojoule intake.</p></div>
+      <div class="health-card"><div class="health-card-num">03</div><h3>Limit saturated fat, added salt & sugar</h3><p>Highly processed snack foods and fast food should be occasional treats, not everyday foods. Excessive saturated fat and sugar is linked to obesity and cardiovascular disease.</p></div>
+      <div class="health-card"><div class="health-card-num">04</div><h3>Encourage breastfeeding (for carers)</h3><p>This guideline applies to infant nutrition but builds the foundation of healthy eating habits from birth — setting up lifelong healthy patterns.</p></div>
+      <div class="health-card"><div class="health-card-num">05</div><h3>Prepare and store food safely</h3><p>Safe food handling prevents foodborne illness. Always refrigerate perishables, wash hands before eating, and use clean utensils — especially important for packed lunchboxes!</p></div>
+      <div class="health-card"><div class="health-card-num">06</div><h3>Achieve and maintain a healthy weight</h3><p>Balance kilojoule intake with at least 60 minutes of physical activity per day. This supports both physical and mental wellbeing throughout adolescence.</p></div>
+    </div>
+    <div class="divider"></div>
+    <div class="section-label">Key Nutrients</div>
+    <div class="section-heading" style="margin-bottom:0.5rem;">What Your Body Needs</div>
+    <p class="section-sub">Here are the key nutrients adolescents need, recommended amounts, what they do, and where to find them.</p>
+    <div class="nutrients-grid">
+      <div class="nutrient-card nc-protein"><span class="nc-icon">🥩</span><div class="nc-name">Protein</div><div class="nc-amount">45–65g per day</div><div class="nc-desc">Essential for muscle growth, tissue repair, and producing enzymes and hormones. Especially important during the rapid growth of adolescence.</div><div class="nc-tags"><span class="nc-tag">Chicken</span><span class="nc-tag">Fish</span><span class="nc-tag">Eggs</span><span class="nc-tag">Legumes</span><span class="nc-tag">Tofu</span></div></div>
+      <div class="nutrient-card nc-carbs"><span class="nc-icon">🍞</span><div class="nc-name">Carbohydrates</div><div class="nc-amount">45–65% of daily energy</div><div class="nc-desc">The body's primary fuel source. Complex carbs from wholegrains provide slow, sustained energy for school, sport, and study.</div><div class="nc-tags"><span class="nc-tag">Brown rice</span><span class="nc-tag">Oats</span><span class="nc-tag">Wholemeal bread</span><span class="nc-tag">Sweet potato</span></div></div>
+      <div class="nutrient-card nc-fats"><span class="nc-icon">🥑</span><div class="nc-name">Healthy Fats</div><div class="nc-amount">20–35% of daily energy</div><div class="nc-desc">Supports brain development, hormone production, and absorption of fat-soluble vitamins A, D, E and K. Focus on unsaturated fats.</div><div class="nc-tags"><span class="nc-tag">Avocado</span><span class="nc-tag">Nuts</span><span class="nc-tag">Olive oil</span><span class="nc-tag">Salmon</span></div></div>
+      <div class="nutrient-card nc-water"><span class="nc-icon">💧</span><div class="nc-name">Water</div><div class="nc-amount">2–2.6 litres per day</div><div class="nc-desc">Regulates body temperature, transports nutrients, lubricates joints, and aids digestion. Dehydration reduces concentration significantly.</div><div class="nc-tags"><span class="nc-tag">Plain water</span><span class="nc-tag">Milk</span><span class="nc-tag">Fruit</span><span class="nc-tag">Soup</span></div></div>
+      <div class="nutrient-card nc-vitamins"><span class="nc-icon">🥦</span><div class="nc-name">Vitamins</div><div class="nc-amount">Varies by vitamin</div><div class="nc-desc">Vitamins A, B, C, D, E, and K support immune function, vision, bone health, and energy metabolism. Colourful fruits and vegetables cover most needs.</div><div class="nc-tags"><span class="nc-tag">Leafy greens</span><span class="nc-tag">Citrus</span><span class="nc-tag">Berries</span><span class="nc-tag">Dairy</span></div></div>
+      <div class="nutrient-card nc-minerals"><span class="nc-icon">⚙️</span><div class="nc-name">Minerals</div><div class="nc-amount">Varies by mineral</div><div class="nc-desc">Calcium (bones), iron (blood and energy), zinc (immunity), and magnesium (muscles and nerves) are especially critical for adolescent development.</div><div class="nc-tags"><span class="nc-tag">Dairy</span><span class="nc-tag">Red meat</span><span class="nc-tag">Spinach</span><span class="nc-tag">Seeds</span></div></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">🥗 Eat Well, Feel Well, Live Well</div><div class="footer-text">Year 8 Technology Assessment &nbsp;|&nbsp; Based on Australian Dietary Guidelines (NHMRC)</div></footer>
+</div>
+
+<script>
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const recipes = {
+  r1: {
+    emoji: '🍢',
+    bg: 'linear-gradient(135deg,#f2e8eb,#e0cdd2)',
+    badge: '🇯🇵 Japanese',
+    name: 'Chicken Teriyaki Skewers',
+    meta: ['⏱ 40 mins', '🍽 2–3 skewers', '💪 High Protein'],
+    ingredients: ['500g chicken thigh, cut into cubes','¼ cup soy sauce','¼ cup brown sugar','1 tbsp sesame oil','1 tbsp honey','1 garlic clove, crushed','1 tsp grated ginger','Wooden skewers'],
+    method: ['Mix soy sauce, brown sugar, sesame oil, honey, garlic, and ginger together.','Add the chicken and marinate it for 30 minutes.','Thread chicken onto skewers.','Grill or pan-fry for 10–12 minutes until cooked.','Serve warm.'],
+    why: '<strong>Why it\'s healthy:</strong> Chicken is an excellent lean protein source that supports muscle growth and repair. Ginger and garlic have anti-inflammatory and immune-boosting properties, making this a flavourful and nutritious meal.'
+  },
+  r2: {
+    emoji: '🥢',
+    bg: 'linear-gradient(135deg,#e8f5e9,#c8e6c9)',
+    badge: '🌱 Vegetarian',
+    name: 'Vegetable Spring Rolls (Fried)',
+    meta: ['⏱ 25 mins', '🍽 4–6 rolls', '🥦 Veggie-Packed'],
+    ingredients: ['Spring roll wrappers','1 cup shredded cabbage','1 cup grated carrot','½ cup bean sprouts','1 tbsp soy sauce','Oil for deep frying'],
+    method: ['Mix the vegetables and soy sauce together.','Wrap the mixture tightly in spring roll wrappers.','Deep fry until golden and crispy.','Serve with dipping sauce.'],
+    why: '<strong>Why it\'s healthy:</strong> Cabbage, carrot and bean sprouts are packed with vitamins C and K, fibre and antioxidants. These vegetables support immune function, digestion and healthy skin.'
+  },
+  r3: {
+    emoji: '🍚',
+    bg: 'linear-gradient(135deg,#f5f0e8,#e8ddd0)',
+    badge: '🍳 Classic',
+    name: 'Fried Rice',
+    meta: ['⏱ 15 mins', '🍽 1–2 serves', '🥚 With Egg'],
+    ingredients: ['White rice','2 eggs','Soy sauce','Frozen peas','Oil','Optional ham'],
+    method: ['Heat oil in a pan.','Add eggs and scramble them.','Add rice, peas, soy sauce, and ham.','Stir-fry until everything is hot.'],
+    why: '<strong>Why it\'s healthy:</strong> Eggs are a complete protein source containing all essential amino acids. Peas add fibre and plant-based protein, while rice provides carbohydrates for sustained energy throughout the school day.'
+  },
+  r4: {
+    emoji: '🥭',
+    bg: 'linear-gradient(135deg,#fff8e1,#ffe0b2)',
+    badge: '🇹🇭 Thai',
+    name: 'Thai Mango Sticky Rice',
+    meta: ['⏱ 20 mins', '🍽 1 serve', '🌿 Vegetarian'],
+    ingredients: ['White sticky rice','Coconut milk','Sugar','Mango slices'],
+    method: ['Cook the sticky rice.','Mix the coconut milk with sugar.','Pour over the rice and serve with mango.'],
+    why: '<strong>Why it\'s healthy:</strong> Mango is rich in vitamin C and vitamin A, supporting immune function and healthy skin. Coconut milk provides healthy fats for energy, and sticky rice supplies carbohydrates to fuel your day.'
+  }
+};
+
+function toggleAccordion(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.accordion-btn').forEach(b => b.classList.remove('open'));
+  if (!isOpen) {
+    body.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+function openModal(id) {
+  const r = recipes[id];
+  document.getElementById('modal-hero').style.background = r.bg;
+  document.getElementById('modal-emoji').textContent = r.emoji;
+  document.getElementById('modal-badge').textContent = r.badge;
+  document.getElementById('modal-title').textContent = r.name;
+  document.getElementById('modal-meta').innerHTML = r.meta.map(m => `<span>${m}</span>`).join('');
+  const html = `
+    <div style="margin-top:0.5rem;background:var(--bg);border-radius:12px;padding:1.2rem;border:1px solid var(--beige-dark);">
+      <div class="modal-col-label">Ingredients</div>
+      <ul>${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+      <div class="modal-col-label">Method</div>
+      <ol>${r.method.map(m => `<li>${m}</li>`).join('')}</ol>
+    </div>`;
+  document.getElementById('modal-content').innerHTML = html;
+  document.getElementById('modal-why').innerHTML = r.why;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
